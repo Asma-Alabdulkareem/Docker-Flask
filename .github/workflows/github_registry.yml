@@ -51,7 +51,8 @@ jobs:
           
       - id: Changing_github_repository_to_LowerCase 
         name: github.repository
-        run: echo ::set-env name=git.repo.lowercase::$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
+        run: echo "git_repo_lowercase=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
   
       - name: Build and push
         id: docker_build
@@ -61,7 +62,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ghcr.io/${{ env.git.repo.lowercase }}/docker-flasksql:latest
+          tags: ghcr.io/$GITHUB_ENV/docker-flasksql:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
