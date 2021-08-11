@@ -49,7 +49,7 @@ jobs:
           version: latest
           buildkitd-flags: --debug
           
-      - id: Changing github.repository to LowerCase 
+      - id: Changing github repository to LowerCase 
         name: github.repository
         run: echo ::set-env name=git.repo.lowercase::$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
   
