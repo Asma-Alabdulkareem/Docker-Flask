@@ -48,7 +48,11 @@ jobs:
         with:
           version: latest
           buildkitd-flags: --debug
-            
+          
+      - id: Changing github.repository to LowerCase 
+        name: github.repository
+        run: echo ::set-env name=git.repo.lowercase::$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
+  
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
@@ -57,7 +61,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ghcr.io/asma-alabdulkareem/docker-flasksql:latest
+          tags: ghcr.io/${{ env.git.repo.lowercase }}/docker-flasksql:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
