@@ -61,7 +61,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ghcr.io/$OWNER/docker-flasksql:latest
+          tags: ghcr.io/${{ env.OWNER }}/docker-flasksql:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
